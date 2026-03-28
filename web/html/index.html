@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log-in</title>
+    <link rel="stylesheet" href="/web/static/css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>LOG-IN</h1>
+
+        <!-- Mensaje de error -->
+        <div class="alert" id="alert" style="display:none;"></div>
+        
+        <div class="input-group">
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" placeholder="your@email.com">
+        </div>
+        
+        <div class="input-group">
+            <label for="password">CONTRASEÑA</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+        
+        <button type="button" id="btn-login">SIGN IN</button>
+        
+        <div class="divider">OR</div>
+        
+        <div class="social-login">
+            <div class="social-btn">G</div>
+        </div>
+        
+        <div class="footer">
+            No recuerdas tu contraseña? <a href="#">Recuperar contraseña</a>
+        </div>
+    </div>
+
+    <script src="/web/static/js/login.js" defer></script>
+</body>
+</html>
