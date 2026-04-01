@@ -2,6 +2,8 @@ import psycopg
 from psycopg.rows import dict_row
 
 
+# estas credenciales deberian ser trabajadas como variables de entorno
+
 DB_CONFIG = {
     "host": "localhost",
     "dbname": "postgres",
