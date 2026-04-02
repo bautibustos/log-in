@@ -10,8 +10,6 @@ recursos/
 
 ########################### inicia exclusiones de node y astro ########################################
 
-# 
-
 # build output
 dist/
 

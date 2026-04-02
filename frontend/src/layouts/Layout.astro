@@ -1,0 +1,93 @@
+---
+// Define las props que acepta el componente
+// title: título que se muestra en la pestaña del navegador
+interface Props {
+    title: string;
+}
+
+// Desestructuramos las props recibidas
+const { title } = Astro.props;
+---
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tipografía bancaria de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Título dinámico recibido como prop -->
+    <title>{title}</title>
+</head>
+<body>
+    <!-- Slot: aquí se renderiza el contenido de cada página que use este layout -->
+    <slot />
+</body>
+</html>
+
+<style is:global>
+    /* Variables globales inspiradas en la paleta de Maze Bank */
+    :root {
+        --primary:      #9b1c1c;   /* rojo Maze Bank */
+        --primary-dark: #7a1515;   /* rojo oscuro para hover */
+        --secondary:    #f2efe8;   /* fondo crema */
+        --background:   #e8e4dc;   /* fondo gris cálido de página */
+        --surface:      #faf8f4;   /* fondo de inputs */
+        --text:         #1a1a1a;   /* texto principal */
+        --text-muted:   #666666;   /* texto secundario */
+        --text-hint:    #aaaaaa;   /* texto terciario */
+        --border:       #bbbbbb;   /* bordes generales */
+        --border-focus: #9b1c1c;   /* borde al enfocar inputs */
+        --success:      #28a745;   /* color de éxito */
+        --success-bg:   #e0f5e4;   /* fondo de alerta éxito */
+        --error-bg:     #f5e0e0;   /* fondo de alerta error */
+    }
+
+    /* Reset básico para eliminar márgenes y paddings por defecto del navegador */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Fuente base del proyecto */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+    /* Tipografía bancaria para títulos */
+    h1, h2, h3 {
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* Links globales con color institucional */
+    a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+    }
+
+    /* Pie de página global */
+    footer {
+        font-size: 10px;
+        color: var(--text-hint);
+        text-align: center;
+        letter-spacing: 1px;
+        margin-top: 2rem;
+        text-transform: uppercase;
+    }
+</style>

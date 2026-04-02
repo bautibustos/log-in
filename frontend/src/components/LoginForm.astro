@@ -1,0 +1,335 @@
+---
+// Importación del logo como imagen optimizada de Astro
+// Reemplazá el archivo por tu logo real
+import logo from '../assets/maze-bank-logo.png';
+
+// URL de la API de FastAPI
+const API_URL = "http://127.0.0.1:8000/api/login";
+---
+
+<!-- Contenedor principal centrado en la página -->
+<div class="mb-wrap">
+
+    <!-- Tarjeta principal del formulario -->
+    <div class="mb-card">
+
+        <!-- Encabezado con logo y nombre del banco -->
+        <div class="mb-header">
+
+            <!-- Logo del banco, reemplazá el src por tu imagen -->
+            <img src={logo.src} alt="Maze Bank Logo" class="mb-logo-img" />
+
+            <!-- Nombre e institución -->
+            <div class="mb-logo-text">
+                <h1>MAZE BANK</h1>
+                <span>de Los Santos</span>
+            </div>
+
+        </div>
+
+        <!-- Subtítulo del formulario -->
+        <p class="mb-subtitle">Acceso a Banca en Línea</p>
+
+        <!-- Caja de alerta, oculta por defecto, se muestra con JS -->
+        <div class="mb-alert" id="mb-alert"></div>
+
+        <!-- Campo de email -->
+        <div class="mb-field">
+            <label for="mb-email">Correo Electrónico</label>
+            <input 
+                type="email" 
+                id="mb-email" 
+                placeholder="tu@correo.com" 
+            />
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="mb-field">
+            <label for="mb-password">Contraseña</label>
+            <input 
+                type="password" 
+                id="mb-password" 
+                placeholder="••••••••" 
+            />
+        </div>
+
+        <!-- Botón principal de ingreso -->
+        <button class="mb-btn" id="mb-btn">Ingresar</button>
+
+        <!-- Separador entre login normal y social -->
+        <div class="mb-divider">o</div>
+
+        <!-- Botón de login con Google -->
+        <button class="mb-google">G &nbsp; Continuar con Google</button>
+
+        <!-- Link de recuperación de contraseña -->
+        <div class="mb-footer">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+    </div>
+
+    <!-- Pie de página institucional -->
+    <footer>© 2013 Maze Bank · Los Santos · Miembro FDIC</footer>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // Referencias a los elementos del DOM
+        const btn     = document.getElementById("mb-btn") as HTMLButtonElement;
+        const alertBox = document.getElementById("mb-alert") as HTMLDivElement;
+
+        // Muestra un mensaje de alerta en el formulario
+        // isError define si es error (rojo) o éxito (verde)
+        function showAlert(message: string, isError: boolean = true) {
+            alertBox.textContent   = message;
+            alertBox.className     = "mb-alert " + (isError ? "error" : "success");
+            alertBox.style.display = "block";
+        }
+
+        // Evento click del botón de ingreso
+        btn.addEventListener("click", async () => {
+
+            // Obtener valores de los campos
+            const email    = (document.getElementById("mb-email") as HTMLInputElement).value.trim();
+            const password = (document.getElementById("mb-password") as HTMLInputElement).value.trim();
+
+            // Validación básica: campos vacíos
+            if (!email || !password) {
+                showAlert("Por favor completá todos los campos.");
+                return;
+            }
+
+            // Deshabilitar botón mientras espera respuesta para evitar doble click
+            btn.disabled     = true;
+            btn.textContent  = "Verificando...";
+
+            try {
+                // Llamada a la API de FastAPI
+                const response = await fetch("http://127.0.0.1:8000/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                // Parsear respuesta de la API
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Login exitoso
+                    showAlert(`Bienvenido/a, ${data.name}!`, false);
+                    // Redirigir al dashboard una vez implementado
+                    // window.location.href = "/dashboard";
+                } else {
+                    // Error devuelto por la API (ej: credenciales inválidas)
+                    showAlert(data.detail || "Error al iniciar sesión.");
+                }
+
+            } catch (error) {
+                // Error de conexión con el servidor
+                showAlert("No se pudo conectar con el servidor.");
+            } finally {
+                // Rehabilitar botón sin importar el resultado
+                btn.disabled    = false;
+                btn.textContent = "Ingresar";
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Fondo general de la página */
+    .mb-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Tarjeta principal del formulario */
+    .mb-card {
+        background: var(--secondary);
+        width: 100%;
+        max-width: 420px;
+        border-top: 4px solid var(--primary);
+        padding: 2.5rem 2rem 2rem;
+    }
+
+    /* Encabezado con logo y nombre */
+    .mb-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 14px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--primary);
+    }
+
+    /* Tamaño del logo */
+    .mb-logo-img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+    }
+
+    /* Nombre del banco */
+    .mb-logo-text h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: 1px;
+    }
+
+    /* Subtítulo del logo */
+    .mb-logo-text span {
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+
+    /* Subtítulo del formulario */
+    .mb-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin: 1.2rem 0 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    /* Grupo de campo con su label */
+    .mb-field {
+        margin-bottom: 1.1rem;
+    }
+
+    /* Etiqueta de cada campo */
+    .mb-field label {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 5px;
+    }
+
+    /* Input de cada campo */
+    .mb-field input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 14px;
+        color: var(--text);
+        outline: none;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Efecto de borde rojo al enfocar un input */
+    .mb-field input:focus {
+        border-color: var(--border-focus);
+    }
+
+    /* Botón principal de ingreso */
+    .mb-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        font-family: Arial, sans-serif;
+        transition: background 0.2s;
+    }
+
+    /* Hover del botón principal */
+    .mb-btn:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Estado deshabilitado durante la carga */
+    .mb-btn:disabled {
+        background: #c47a7a;
+        cursor: not-allowed;
+    }
+
+    /* Caja de alerta base, oculta por defecto */
+    .mb-alert {
+        display: none;
+        padding: 10px 12px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-align: center;
+        border: 1px solid;
+    }
+
+    /* Alerta de error */
+    .mb-alert.error {
+        background: var(--error-bg);
+        color: var(--primary-dark);
+        border-color: var(--primary);
+    }
+
+    /* Alerta de éxito */
+    .mb-alert.success {
+        background: var(--success-bg);
+        color: var(--success);
+        border-color: var(--success);
+    }
+
+    /* Separador entre login normal y social */
+    .mb-divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 1.2rem 0;
+        color: var(--text-hint);
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+
+    .mb-divider::before,
+    .mb-divider::after {
+        content: '';
+        flex: 1;
+        border-top: 1px solid var(--border);
+    }
+
+    /* Botón de login con Google */
+    .mb-google {
+        width: 100%;
+        padding: 10px;
+        background: transparent;
+        border: 1px solid var(--border);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        cursor: pointer;
+        text-transform: uppercase;
+        font-family: Arial, sans-serif;
+        transition: border-color 0.2s, color 0.2s;
+    }
+
+    /* Hover del botón de Google */
+    .mb-google:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Pie del formulario con link de recuperación */
+    .mb-footer {
+        text-align: center;
+        margin-top: 1.2rem;
+        font-size: 11px;
+    }
+</style>
