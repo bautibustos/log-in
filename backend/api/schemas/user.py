@@ -11,3 +11,15 @@ class User(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
+    
+class OTPrequest(BaseModel):
+    email: str
+
+class OTPVerify(BaseModel):
+    #se utiliza para buscar en el diccionario
+	email: str
+	code: int 
+    
+class UpdatePassword(BaseModel):
+	email: str
+	pwd: str

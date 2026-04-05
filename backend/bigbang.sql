@@ -14,21 +14,17 @@ CREATE TABLE "USERS"(
  * cretion_time (para saber cuando se creo)
  */
 
-select * from ispc."USERS";
-
 
 SET search_path TO ispc, public;
 
+-- se incerta usuario de prueba
 INSERT INTO "USERS" (name, email, pwd)
 VALUES (
     'Admin Test',
     'admin@test.com',
-    '$2b$12$Kx8J1zQmN9vL3pY7wR5uOeHtGfDcBaXsIqMnPjUyVkWoEhCrTlAs'
+    '$2b$12$D0k7ipYq5TfGgDFN1fcwgeA1JbBac4lpPVMremyzwYLCEIIdxoi0a'
 );
-UPDATE ispc."USERS"
-SET pwd = '$2b$12$D0k7ipYq5TfGgDFN1fcwgeA1JbBac4lpPVMremyzwYLCEIIdxoi0a'
-WHERE email = 'admin@test.com';
+-- la contraseña es admin1234
 
-
--- Verificar que se insertó
-SELECT * FROM ispc."USERS";
+-- verificacion de insersion
+select * from ispc."USERS";
