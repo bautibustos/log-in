@@ -59,6 +59,9 @@ import Alert from "../ui/Alert/Alert.astro";
                 console.log(response.ok);
                 if (response.ok == true) {
                     console.log("OOOAAAAA")
+                    sessionStorage.setItem("userEmail", savedEmail);
+                    window.location.href = "/change-pwd";
+                    
                 }else{
                     showAlert("Codigo incorrecto.");
                 }
