@@ -1,0 +1,30 @@
+---
+---
+<!-- Caja de alerta, oculta por defecto -->
+<div class="mb-alert" id="mb-alert" style="display:none;"></div>
+
+<style>
+    /* Caja de alerta base */
+    .mb-alert {
+        padding: 10px 12px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        text-align: center;
+        border: 1px solid;
+    }
+
+    /* Alerta de error */
+    .mb-alert.error {
+        background: var(--error-bg);
+        color: var(--primary-dark);
+        border-color: var(--primary);
+    }
+
+    /* Alerta de éxito */
+    .mb-alert.success {
+        background: var(--success-bg);
+        color: var(--success);
+        border-color: var(--success);
+    }
+</style>

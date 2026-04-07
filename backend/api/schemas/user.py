@@ -11,7 +11,8 @@ class User(BaseModel):
 class LoginRequest(BaseModel):
     email: str
     password: str
-    
+
+	# verificacion del mail para generar otp
 class OTPrequest(BaseModel):
     email: str
 

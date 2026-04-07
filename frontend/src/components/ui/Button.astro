@@ -1,0 +1,38 @@
+---
+interface Props {
+  nombre: string;
+}
+const { nombre } = Astro.props;
+---
+
+<button class="mb-btn" id="mb-btn">{nombre}</button>
+
+<style>
+    /* Botón principal de ingreso */
+    .mb-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        font-size: 13px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        font-family: Arial, sans-serif;
+        transition: background 0.2s;
+    }
+
+    /* Hover del botón principal */
+    .mb-btn:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Estado deshabilitado durante la carga */
+    .mb-btn:disabled {
+        background: #c47a7a;
+        cursor: not-allowed;
+    }
+</style>

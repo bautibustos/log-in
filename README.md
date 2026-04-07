@@ -45,6 +45,139 @@ Si existe → compara el hash de la contraseña enviada con el hash guardado
         ↓
  Coincide → login ok    No coincide → error
 ```
+## Logica del OTP
+```
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BDUsuario ingresa email
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BD        ↓
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BDFastAPI genera código OTP de 6 dígitos
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BD        ↓
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BDLo imprime en consola (print)
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BD        ↓
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BDUsuario ingresa el código en el frontend
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BD        ↓
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BDFastAPI verifica el código y deja continuar
+Usuario ingresa email en recovery-pwd
+        ↓
+FastAPI verifica que el email existe y genera OTP
+        ↓
+Imprime OTP en consola
+        ↓
+Usuario ingresa el código OTP
+        ↓
+FastAPI verifica el código
+        ↓
+Usuario ingresa la nueva contraseña
+        ↓
+FastAPI actualiza la contraseña en la BD
+```
 
 # Estructura de carpetas
 ```

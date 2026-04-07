@@ -1,0 +1,70 @@
+---
+import Button from "../../components/ui/Button.astro";
+import InputMail from "../../components/ui/InputMail.astro";
+import Alert from "../ui/Alert/Alert.astro";
+---
+<!-- Subtítulo del formulario -->
+<p class="mb-subtitle">Hemos enviado un código de verificación de 6 dígitos a <span id="display-email" class="bold"></span> Por favor, ingrésalo a continuación para restablecer tu contraseña.</p>
+<Alert />
+<!-- Codigo otp -->
+ <InputMail 
+        label="Ingrese el codigo de 6 digitos"
+        placeholder="000000"
+        type="text"
+        id="mb-otp"
+        maxlength={6}
+/>  
+<Button
+    nombre="Confirmar"
+/>
+
+<!-- texto en negrita -->
+<style>
+    .bold{ 
+        font-weight: bold;
+    }
+
+</style>
+<script>
+    import {showAlert} from "../ui/Alert/Alert.ts";
+    const btn     = document.getElementById("mb-btn") as HTMLButtonElement;
+    const spanEmail = document.getElementById("display-email") as HTMLSpanElement;
+    const savedEmail = sessionStorage.getItem("userEmail"); 
+
+    // logica para mostrar el mail en el span
+    if (savedEmail && spanEmail) {
+        spanEmail.textContent = savedEmail;
+    }else{
+        spanEmail.textContent="tu correo";
+    }
+    btn.addEventListener("click", async () => {
+
+            // Obtener valores de los campos
+            const otp    = (document.getElementById("mb-otp") as HTMLInputElement).value.trim();
+            // Validación básica: campos vacíos
+            if (!otp) {
+                showAlert("Por favor completá todos los campos.");
+                return;
+            }
+
+            // Deshabilitar botón mientras espera respuesta para evitar doble click
+            btn.disabled     = true;
+            btn.textContent  = "Verificando...";
+            try{
+                const response = await fetch("http://127.0.0.1:8000/api/otp", {
+                        method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "email": savedEmail, "code": otp})
+                });
+                console.log(response.ok);
+                if (response.ok == true) {
+                    console.log("OOOAAAAA")
+                }else{
+                    showAlert("Codigo incorrecto.");
+                }
+            }finally{
+                btn.disabled    = false;
+                btn.textContent = "Confirmar";
+            }
+        });
+</script>

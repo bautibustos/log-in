@@ -1,0 +1,52 @@
+---
+import Button from "../../components/ui/Button.astro";
+import InputMail from "../../components/ui/InputMail.astro";
+---
+<!-- Subtítulo del formulario -->
+<p class="mb-subtitle">Recuperacíon de contraseña</p>
+<!-- Campo de email -->
+<InputMail 
+        label="Email"
+        placeholder="nombre@gmail.com"
+        type="email" 
+        id="mb-email"
+/>  
+
+
+<Button nombre="Enviar" />
+
+<!-- separador entre script y hrml -->
+
+<script>
+
+        const btn     = document.getElementById("mb-btn") as HTMLButtonElement;
+        btn.addEventListener("click", async () => {
+
+            // Obtener valores de los campos
+            const email    = (document.getElementById("mb-email") as HTMLInputElement).value.trim();
+        
+            // Deshabilitar botón mientras espera respuesta para evitar doble click
+            btn.disabled     = true;
+            btn.textContent  = "Verificando...";
+        try{
+                //llamada a la api
+                const response = await fetch("http://127.0.0.1:8000/api/recovery", {
+                        method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                });
+                // guardo el mail para utilizarlo en la siguiente pestaña para verificar el otp
+                sessionStorage.setItem("userEmail", email);
+                console.log(email);
+                window.location.href = "/check-otp";
+        }catch(error){
+                //error de conexion
+                //hacer alerta de error con el servidor
+        } finally {
+                //rehabilitar boton
+                btn.disabled    = false;
+                btn.textContent = "Enviar";
+        }
+
+        });
+</script>

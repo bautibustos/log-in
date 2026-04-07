@@ -1,0 +1,90 @@
+---
+interface Props {
+  label: string;
+  placeholder?: string;
+  type?: "text" | "password" | "email" | "number";
+  id?: string;
+  value?: string;
+  required?: boolean; /** Indica si el campo es obligatorio */
+  disabled?: boolean;
+  maxlength?: number;
+}
+const { label, placeholder, type = "text", id, value, required = false, disabled, maxlength } = Astro.props;
+---
+
+<!-- Campo de email -->
+<!-- El type: verifica que el formato sea email -->
+<div class="mb-field">
+    <label for={id}>{label}</label>
+    <input 
+        id={id} 
+        placeholder={placeholder}
+        type={type}
+        required={required}
+        disabled={disabled}
+        value={value}
+        maxlength={maxlength}
+        />
+</div>
+
+
+<style>
+  
+    /* Grupo de campo con su label */
+    .mb-field {
+        margin-bottom: 1.1rem;
+    }
+
+    /* Etiqueta de cada campo */
+    .mb-field label {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 5px;
+    }
+
+        /* Input de cada campo */
+    .mb-field input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 14px;
+        color: var(--text);
+        outline: none;
+        font-family: Arial, sans-serif;
+        border-radius: 8px;
+    }
+
+    /* Efecto de borde rojo al enfocar un input */
+    .mb-field input:focus {
+        border-color: var(--border-focus);
+    }
+    /* Subtítulo del formulario */
+    .mb-subtitle {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin: 1.2rem 0 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    /* Grupo de campo con su label */
+    .mb-field {
+        margin-bottom: 1.1rem;
+    }
+
+    /* Etiqueta de cada campo */
+    .mb-field label {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 5px;
+    }
+
+</style>

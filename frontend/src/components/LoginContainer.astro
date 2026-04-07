@@ -1,0 +1,93 @@
+---
+// Importación del logo como imagen optimizada de Astro
+// Reemplazá el archivo por tu logo real
+import logo from '../assets/maze-bank-logo.png';
+
+// URL de la API de FastAPI
+const API_URL = "http://127.0.0.1:8000/api/login";
+---
+
+<!-- Contenedor principal centrado en la página -->
+<div class="mb-wrap">
+
+    <!-- Tarjeta principal del formulario -->
+    <div class="mb-card">
+
+        <!-- Encabezado con logo y nombre del banco -->
+        <div class="mb-header">
+
+            <!-- Logo del banco, reemplazá el src por tu imagen -->
+            <img src={logo.src} alt="Maze Bank Logo" class="mb-logo-img" />
+
+            <!-- Nombre e institución -->
+            <div class="mb-logo-text">
+                <h1>MAZE BANK</h1>
+                <span>de Los Santos</span>
+            </div>
+
+        </div>
+        <!-- slot -->
+        <slot/>
+
+    </div>
+
+    <!-- Pie de página institucional -->
+    <footer>© 2013 Maze Bank · Los Santos · Miembro FDIC</footer>
+
+</div>
+
+
+
+<style>
+    /* Fondo general de la página */
+    .mb-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Tarjeta principal del formulario */
+    .mb-card {
+        background: var(--secondary);
+        width: 100%;
+        max-width: 420px;
+        border-top: 4px solid var(--primary);
+        padding: 2.5rem 2rem 2rem;
+    }
+
+    /* Encabezado con logo y nombre */
+    .mb-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 14px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--primary);
+    }
+
+    /* Tamaño del logo */
+    .mb-logo-img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+    }
+
+    /* Nombre del banco */
+    .mb-logo-text h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: 1px;
+    }
+
+    /* Subtítulo del logo */
+    .mb-logo-text span {
+        font-size: 9px;
+        letter-spacing: 3px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+    }
+</style>

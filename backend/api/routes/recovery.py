@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Response
 import bcrypt
 import db.connection
-from api.schemas.user import OTPVerify, UpdatePassword
+from api.schemas.user import OTPrequest,OTPVerify, UpdatePassword
 import random, time
 
 router = APIRouter()
@@ -18,17 +18,18 @@ def gen_otp(email):
         "time": time.time()
         }
     print(otp)
+    #añadir logica para que si existe un autentication code, no se renueve a menos que se vensa 
 
 
 # aca se verifica que el mail este en la base de datos
-@router.get("/users/{email}")
-def get_user(email: str):
+@router.post("/recovery")
+def get_user(data: OTPrequest):
     with db.connection.get_connection() as conn:
         with conn.cursor() as cursor:
             # busca correo en la base de datos
             cursor.execute(
                 'SELECT id_user, name, email FROM "USERS" WHERE email = %s',
-                (email,)
+                (data.email,)
             )
             #recupera resultados
             user = cursor.fetchone()
@@ -41,7 +42,7 @@ def get_user(email: str):
         se haria un campo OTP, donde guardaria los datos que estan en el diccionario OTP
         luego se haria un request y compararia datos
         """
-        gen_otp(email)
+        gen_otp(data.email)
     return Response(status_code=200)
 
 @router.post("/otp")
@@ -50,14 +51,14 @@ def check_otp(data: OTPVerify):
         # comparo que el codigo sea el correcto y que el tiempo de generacion y el tiempo actual no supere los 300 segundos (5minutos)
         if otp[data.email]["code"] == data.code and otp[data.email]["time"]+300>time.time():
             del otp[data.email]
-            return Response(status_code=200)
+            return Response(status_code=200, content="OTP correcto")
         else:
-            return Response(status_code=401)
+            return Response(status_code=401, content="OTP incorrecto")
     else:# si esto no es correcto es pq no se genero el otp
-        return Response(status_code=401)
+        return Response(status_code=401, content="OTP otro error")
     
 
-@router.post("/users/updt-pwd")
+@router.post("/updt-pwd")
 def update_password(data: UpdatePassword):
     # una vez que se verifica que el OTP es correcto, se pasa a la nueva pestaña
     # donde se debe poner la nueva contraseña

@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.routes.users import router as users_router
+from api.routes.recovery import router as recovery_router
+
 
 app = FastAPI()
 
@@ -21,6 +23,7 @@ app.add_middleware(
 
 # definicion de nueva ruta dentro de la api
 app.include_router(users_router, prefix="/api")
+app.include_router(recovery_router, prefix="/api")
 
 
 """
