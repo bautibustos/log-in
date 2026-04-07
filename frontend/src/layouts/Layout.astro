@@ -15,8 +15,9 @@ const { title } = Astro.props;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tipografía bancaria de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Título dinámico recibido como prop -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    <!-- Título dinámico recibido como prop -->
     <title>{title}</title>
 </head>
 <body>
@@ -29,16 +30,16 @@ const { title } = Astro.props;
     @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
     /* Variables globales inspiradas en la paleta de Maze Bank */
     :root {
-        --primary:      #9b1c1c;   /* rojo Maze Bank */
-        --primary-dark: #7a1515;   /* rojo oscuro para hover */
+        --primary:      #2563EB;   /* rojo Maze Bank */
+        --primary-dark: #1B3A6B;   /* rojo oscuro para hover */
         --secondary:    #f2efe8;   /* fondo crema */
         --background:   #e8e4dc;   /* fondo gris cálido de página */
         --surface:      #faf8f4;   /* fondo de inputs */
-        --text:         #1a1a1a;   /* texto principal */
+        --text:         #1E293B;   /* texto principal */
         --text-muted:   #666666;   /* texto secundario */
-        --text-hint:    #aaaaaa;   /* texto terciario */
+        --text-hint:    #FFFFFF;   /* texto terciario */
         --border:       #bbbbbb;   /* bordes generales */
-        --border-focus: #9b1c1c;   /* borde al enfocar inputs */
+        --border-focus: #2563EB;   /* borde al enfocar inputs */
         --success:      #28a745;   /* color de éxito */
         --success-bg:   #e0f5e4;   /* fondo de alerta éxito */
         --error-bg:     #f5e0e0;   /* fondo de alerta error */
@@ -53,7 +54,7 @@ const { title } = Astro.props;
 
     /* Fuente base del proyecto */
     body {
-        font-family: 'Lato', sans-serif;
+        font-family: 'Roboto', sans-serif;
         background-color: var(--background);
         color: var(--text);
         min-height: 100vh;
@@ -66,9 +67,9 @@ const { title } = Astro.props;
 
     /* Tipografía bancaria para títulos */
     h1, h2, h3 {
-        font-family: 'Lato', serif;
+        font-family: 'Roboto', serif;
+        font-size: 80px;
     }
-
     /* Links globales con color institucional */
     a {
         color: var(--primary);

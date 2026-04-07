@@ -11,8 +11,8 @@ import InputMail from "../../components/ui/InputMail.astro";
 
         <!-- Campo de email -->
          <InputMail 
-            label="Email"
-            placeholder="nombre@gmail.com"
+            label="D.N.I."
+            placeholder="00.000.000"
             type="email"
             id="mb-email"
             />
@@ -43,11 +43,42 @@ import InputMail from "../../components/ui/InputMail.astro";
 
 
 <script>
+
+
     document.addEventListener("DOMContentLoaded", () => {
 
+        
         // Referencias a los elementos del DOM
         const btn     = document.getElementById("mb-btn") as HTMLButtonElement;
         const alertBox = document.getElementById("mb-alert") as HTMLDivElement;
+        
+        let intentos        = 0;
+        const maxIntentos   = 3;
+        // Tiempo de bloqueo en milisegundos
+        const tiempoBloqueo = 5 * 60 * 1000;
+        function bloquearBtn() {
+            btn.disabled  = true;
+            const fin     = Date.now() + tiempoBloqueo;
+
+            const intervalo = setInterval(() => {
+                const restante = Math.ceil((fin - Date.now()) / 1000);
+                // limpieza de intervalo
+                if (restante <= 0) {
+                    clearInterval(intervalo);
+                    btn.disabled    = false;
+                    btn.textContent = "Ingresar";
+                    intentos        = 0;
+                    showAlert("Podés volver a intentarlo.", false);
+                } else {
+                    //  contador de minutos
+                    const minutos  = Math.floor(restante / 60);
+                    const segundos = restante % 60;
+                    // Actualizar el texto del botón con el tiempo restante
+                    btn.textContent = `Bloqueado ${minutos}:${segundos.toString().padStart(2, "0")}`;
+                }
+            }, 1000);
+        }
+
 
         // Muestra un mensaje de alerta en el formulario
         // isError define si es error (rojo) o éxito (verde)
@@ -91,13 +122,21 @@ import InputMail from "../../components/ui/InputMail.astro";
                     // Redirigir al dashboard una vez implementado
                     // window.location.href = "/dashboard";
                 } else {
-                    // Error devuelto por la API (ej: credenciales inválidas)
-                    showAlert(data.detail || "Error al iniciar sesión.");
+                    intentos++;
+                    if (intentos >= maxIntentos) {
+                        showAlert("Demasiados intentos. Bloqueado por 5 minutos.");
+                        bloquearBtn();
+                    } else {
+                        const restantes = maxIntentos - intentos;
+                        showAlert(`Credenciales inválidas. Te quedan ${restantes} intento${restantes > 1 ? "s" : ""}.`);
+                        btn.disabled    = false;
+                        btn.textContent = "Ingresar";
+                    }
                 }
-
             } catch (error) {
                 // Error de conexión con el servidor
                 showAlert("No se pudo conectar con el servidor.");
+                console.log("Error de conexión:", error);
             } finally {
                 // Rehabilitar botón sin importar el resultado
                 btn.disabled    = false;
