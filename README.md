@@ -49,7 +49,7 @@ Una vez dentro del olvide mi contraseña y colocado el mail, dentro de la consol
 
 **nota**: Como son servidores de prueba y desarrollo ambos son ejecutados en modo "dev". Ya que puede ser algo inestable para ejecutarlos en modo normal. (Ambos en ve de recibir el parametro dev, solamente recibirian el parametro run.)
 
-# Teconologia utilizada
+# Tecnologia utilizada
 ## Fast API
 - Rendimiento: Basado en ASGI, permite el manejo de peticiones asincrónicas (async/await), optimizando la concurrencia y el tiempo de respuesta.
 
@@ -69,7 +69,7 @@ Una vez dentro del olvide mi contraseña y colocado el mail, dentro de la consol
 Se opto por el guardado de las contraseñas dentro de la base de datos hasheadas como un plus de seguridad. Se utilizo como algoritmo de hasheo "BCrypt" (Este dato no deberia ser mostrado, pero esto es meramente educativo). Ya que asegura que dos contraseñas distintas no generen el mismo hash tambien se tuvieron en cuenta los siguientes puntos:
 
 - **Irreversibilidad**: A diferencia del cifrado, el hash es una función de una sola vía. No se puede "des-hashear" para volver al texto plano.
-- **Seguridad**: ante filtraciones: Si la base de datos es vulnerada, el atacante solamente vera cadenas de texto sin poder decifrarlas.
+- **Seguridad**: ante filtraciones: Si la base de datos es vulnerada, el atacante solamente vera cadenas de texto sin poder descifrarlas.
 - **Integridad del Secreto**: El sistema nunca conoce la contraseña real.
 
 ## Astro
