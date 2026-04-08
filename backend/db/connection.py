@@ -8,7 +8,7 @@ DB_CONFIG = {
     "host": "localhost",
     "dbname": "postgres",
     "user": "postgres",
-    "password": "admin",
+    "password": "fernet2020",
     "port": "5432",
     "options": "-c search_path=ispc,public"
 }
